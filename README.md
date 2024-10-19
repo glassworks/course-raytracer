@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1515922912707-dbc512030899?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw4fHxzcGhlcmV8ZW58MHx8fHwxNzI5MzA4NTk3fDA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Ingénierie avancée : Un lanceur de rayon  
 
 L'objectif de ce hackathon est de vous initier à l'ingénierie d'un logiciel avancé. Dans votre carrière de Tech-Lead/CTO, on vous demandera de concevoir et de développer des logiciels qui vont au-delà d'un simple site web ou d'une application web avec une base de données et des appels API. 
