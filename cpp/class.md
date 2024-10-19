@@ -1,10 +1,11 @@
 # Class
 
-A class is the central tenet of the Object Oriented programming paradigm, and will be very useful for the architecture of our raytracer.
+Une classe est le principe central du paradigme de la programmation orientée objet et sera très utile pour l'architecture de notre raytracer.
 
-We will use classes for our mathematical modelling, and make our operations much easier to perform.
+Nous utiliserons des classes pour notre modélisation mathématique, ce qui facilitera grandement nos opérations.
 
-For this example, we will model a **color**, which is just a vector (or **tuple**) contining three values: red, green and blue: 
+Pour cet exemple, nous modéliserons une **couleur**, qui est simplement un vecteur (ou **tuple**) contenant trois valeurs : rouge, vert et bleu : 
+
 
 ```
 (r, g, b)
@@ -18,15 +19,16 @@ White = (1, 1, 1)
 Black = (0, 0, 0)
 ```
 
-Have you ever heard of a **pixel**? It is in fact just one tuple containing the three float values for red, green and blue !
+Avez-vous déjà entendu parler d'un **pixel**? Il s'agit en fait d'un tuple contenant les trois valeurs flottantes pour le rouge, le vert et le bleu !
 
+En C++, nous gérons les dépendances en spécifiant d'abord les *interfaces* de nos classes (en utilisant les fichiers **h** ), et l'implémentation réelle des interfaces dans les fichiers **cpp**.
 
-In C++ we manage dependencies by first specifying *interfaces* of our classes (using **h** files), and the actual implementation of the interfaces in the **cpp** files.
-
-Let us define our interface for representing a Color (in `src/raymath/Color.hpp`) :
+Définissons notre interface pour représenter une couleur (dans `src/raymath/Color.hpp`) :
 
 
 ```cpp
+#pragma once
+
 #include <iostream>
 
 class  Color
@@ -40,25 +42,29 @@ public:
   Color(float r, float g, float b);
   ~ Color();
 
+  float R();
+  float G();
+  float B();
+
   Color operator+(Color const& col);
+  Color& operator=(Color const& col);
   friend std::ostream & operator<<(std::ostream & _stream, Color const & col);
 };
-
 ```
 
-We define three private values, `r`, `g` and `b`. We also define two contructor functions :
+Nous définissons trois valeurs privées, `r`, `g` et `b`. Nous définissons également deux fonctions de construction :
 
-- One that will initialise the color to black
-- One that takes three parameters and initialises the color accordingly
+- L'une qui initialise la couleur en noir
+- Une autre qui prend trois paramètres et initialise la couleur en conséquence.
   
-It is also always good practice to include a **destructor* function - the function that will be called when the object instance is destroyed (to clean up memory).
+Il est toujours bon d'inclure une fonction**destructeur** - la fonction qui sera appelée lorsque l'instance de l'objet sera détruite (pour nettoyer la mémoire).
 
-We have defined two **operators** which will make our life easier when using this class :
+Nous avons défini deux **opérateurs** qui nous faciliteront la vie lors de l'utilisation de cette classe :
 
-- `+`  : which will allow us to use the symbol `+`  between two objects of type `Color`, performing the color equivalent of addition
-- `<<` : which will allow us to serialize our `Color` to an `iostream` for easier debugging.
+- `+` : qui nous permettra d'utiliser le symbole `+` entre deux objets de type `Color`, réalisant ainsi l'équivalent en couleur d'une addition.
+- `<<` : qui nous permettra de sérialiser notre `Color` dans un `iostream` pour faciliter le débogage.
 
-Now let us look at the implementation (in `src/raymath/Color.cpp`) :
+Regardons maintenant l'implémentation (dans `src/raymath/Color.cpp`) :
 
 
 ```cpp
@@ -77,6 +83,21 @@ Color::~ Color()
 {
 }
 
+float Color::R()
+{
+  return r;
+}
+
+float Color::G()
+{
+  return g;
+}
+
+float Color::B()
+{
+  return b;
+}
+
 /**
  * Implementation of the + operator :
  * Adding two colors is done by just adding the different components together :
@@ -84,10 +105,20 @@ Color::~ Color()
  */
 Color Color::operator+(Color const& col) {
   Color c;
-  c.r = r + col.r;
-  c.g = g + col.g;
-  c.b = b + col.b;
+  c.r = fmax(fmin(r + col.r, 1), 0);
+  c.g = fmax(fmin(g + col.g, 1), 0);
+  c.b = fmax(fmin(b + col.b, 1), 0);
   return c;
+}
+
+/**
+ * Overriding the assignment operator
+ */
+Color& Color::operator=(Color const& col) {
+  r = col.r;
+  g = col.g;
+  b = col.b;
+  return *this;
 }
 
 /**
@@ -99,15 +130,14 @@ std::ostream & operator<<(std::ostream & _stream, Color const & col) {
 }
 ```
 
-Note that we provide actual implementations of the functions we defined in the header file !
+## Compilation de cette bibliothèque
 
-## Compilation of this library
+Nous voulons développer un certain nombre de classes comme `Color` dans notre projet. Il est utile de les regrouper dans une **librairie**.
 
-We want to develop a number of classes like `Color` in our project. It is useful to group them into a **library**.
+Dans CMake, nous procédons de la manière suivante :
 
-In CMake, we do this as follows:
+1. Ajoutez le fichier `src/raymath/CMakeLists.txt`, avec l'instruction de construire notre nouvelle classe :
 
-1. Add the file `src/raymath/CMakeLists.txt`, with the instruction to build our new class :
 
 ```cmake
 add_library(raymath 
@@ -115,7 +145,7 @@ add_library(raymath
 )
 ```
 
-2. Modify our root `CMakeLists.txt` file :
+2. Modifiez notre fichier racine `CMakeLists.txt`.
 
 
 ```cmake
@@ -138,9 +168,9 @@ add_subdirectory(./src/raymath)
 target_link_libraries(raytracer PUBLIC raymath)
 ```
 
-## Using the library
+## Utilisation de la bibliothèque
 
-Now we can use our `Color` class in our project :
+Nous pouvons maintenant utiliser notre classe `Color` dans notre projet :
 
 ```cpp
 #include <iostream>

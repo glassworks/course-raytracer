@@ -1,113 +1,115 @@
-# Advanced Engineering : Raytracer
+# Ingénierie avancée : Un lanceur de rayon  
 
-The objective of this hackathon is to introduce you to the engineering of an advanced piece of software. In your career as Tech-Lead/CTO, you will be asked to conceive and engineer software that goes beyond a simple website or web-app with a database and API calls. 
+L'objectif de ce hackathon est de vous initier à l'ingénierie d'un logiciel avancé. Dans votre carrière de Tech-Lead/CTO, on vous demandera de concevoir et de développer des logiciels qui vont au-delà d'un simple site web ou d'une application web avec une base de données et des appels API. 
 
-As a software engineer, you will be often asked to model a scientific principle, a mathematical principle, emulate physics-based behaviours. All this in the view of making a useful tool for your clients. This can often be a daunting task :
+En tant qu'ingénieur logiciel, on vous demandera souvent de modéliser un principe scientifique, un principe mathématique, d'émuler des comportements basés sur la physique. Tout cela dans le but de créer un outil utile pour vos clients. Cette tâche peut souvent s'avérer décourageante :
 
-- you will need to learn, understand the mathematical, physical or otherwise technical concepts that are outside of your comfort zone
-- you will need to translate these concepts into your domain : data-structures, algorithms, architecture, ....
-- you will need to overcome performance problems
-- you will need to provide a product that is actually *useful* to your client
+- vous devrez apprendre, comprendre les concepts mathématiques, physiques ou autres concepts techniques qui sont en dehors de votre zone de confort
+- vous devrez traduire ces concepts dans votre domaine : structures de données, algorithmes, architecture, ....
+- vous devrez surmonter les problèmes de performance
+- vous devrez fournir un produit qui soit réellement *utile* à votre client
 
-For this project, we are throwing you in the deep-end, and asking you to engineer a piece of complex mathematical software ! This is not because we are sadistic, there are in fact, a number of really important and useful skills that should come from this exercise :
+Pour ce projet, nous vous jetons dans le grand bain et vous demandons de concevoir un logiciel mathématique complexe ! Ce n'est pas parce que nous sommes sadiques, il y a en fait un certain nombre de compétences vraiment importantes et utiles qui devraient résulter de cet exercice :
 
-- The ability to translate a mathematical principle to an engineering problem
-- Choosing and implementing good data-structures, design patterns, and adopting a clean architecture
-- Adding a programming language to your toolkit (if you do not already know C++)
-- Be confronted by serious optimisation problems, and try and come up with solutions
-- Pushing to create an agreeable user-experience
+- la capacité à traduire un principe mathématique en un problème d'ingénierie
+- Choisir et mettre en œuvre de bonnes structures de données, des modèles de conception, et adopter une architecture propre.
+- l'ajout d'un langage de programmation à votre boîte à outils (si vous ne connaissez pas déjà le C++)
+- Être confronté à de sérieux problèmes d'optimisation et essayer de trouver des solutions.
+- Vous efforcer de créer une expérience utilisateur agréable.
 
-This is a group project, and therefore as a future Tech-Lead/CTO, you will also need to practice and refine your non-technical, but still essential skills :
+Il s'agit d'un projet de groupe, et par conséquent, en tant que futur Tech-Lead/CTO, vous devrez également pratiquer et affiner vos compétences non techniques, mais néanmoins essentielles :
 
-- working and coordinating with other developers (planning, delegation, synchronisation, conflict resolution, ...). You are free to use whichever project management philosophy you desire (Agile, Scrum, Kanban, ...)
-- working with a centralised GIT repository
-- code-review between colleagues
+- travailler et coordonner avec d'autres développeurs (planification, délégation, synchronisation, résolution de conflits, ...). Vous êtes libre d'utiliser la philosophie de gestion de projet que vous souhaitez (Agile, Scrum, Kanban, ...).
+- travailler avec un dépôt GIT centralisé
+- révision du code entre collègues
 
-## The project : a ray-tracer
 
-The year is 2035. AI and Chat-GPT have destroyed the technical skills market. An entire generation of copy-paste developers has resulted in version of version of bad/buggy software. The giants of computer-based image rendering are brought to their knees. Adobe and Autodesk have gone under. Blender has become unusable.
+## Le projet : un "ray-tracer"
 
-The major 3D CGI film studios are desperate - they need their software to produce their next film, and have nowhere to turn! Fortunately, you are here to save the day!
+Nous sommes en 2035. L'IA et le Chat-GPT ont détruit le marché des compétences techniques. Une génération entière de développeurs « copier-coller » a donné naissance à une multitude de versions de logiciels défectueux. Les géants du rendu d'images par ordinateur sont à genoux. Adobe et Autodesk ont fait faillite. Blender est devenu inutilisable.
 
-Your mission is to create, from first principles, a **ray-tracer** : a piece of software that renders 3D images by simulating how light bounces around a scene.
+Les principaux studios de cinéma 3D en images de synthèse sont désespérés - ils ont besoin de leurs logiciels pour produire leur prochain film et n'ont nulle part où aller ! Heureusement, vous êtes là pour sauver la situation !
 
-<figure><img src="./img/example.jpeg" alt=""><figcaption><p>Example scene rendered by a ray-tracer. <a href="https://github.com/mellinoe/veldrid-raytracer">Source</a></p></figcaption></figure>
+Votre mission est de créer, à partir des premiers principes, un **traceur de rayons**: un logiciel qui rend des images 3D en simulant la façon dont la lumière rebondit autour d'une scène.
 
-You have one week to build this piece of software. The film studios require the following functionalities :
+<figure><img src="./img/example.jpeg" alt=""><figcaption><p>Exemple de scène rendue par un ray-tracer. <a href="https://github.com/mellinoe/veldrid-raytracer">Source</a></p></figcaption></figure>
 
-- Render at least a **sphere** and a **plane** with full reflection (that is, a totally metallic sphere that reflects its environment), and output a single image as a PNG image.
-- You must be able to render a high resolution image of scene with a large quantity of objects, and at least 4 light-bounces. You must measure the render time and report it in your final submission. Remember, a film is composed of a series of static images. Your software will therefore have to render hundreds of thousands of images to create the film. The render-speed is therefore a big factor for the client!
-- If this has been achieved, you will receive extra credit for any of the following :
-  - The implementation of other surface shading models (Blinn, Phong, Gourad, Cook-Torrance)
-  - Rendering other shapes, for example, cubes, cylinders, triangles
-  - Rendering a 3D model (of the format .obj, .fbx, .collada or other)
-  - Render optimisation strategies:
-    - Space partitioning
-    - Multi-threading or parallel processing
-    - Using the GPU
-    - Multi-processing (rendering on a cluster, task queues, etc.)
-  - More advanced surface rendering techniques: texture-mapping, bump-mapping, environment mapping, ...
-  - A structured scene modeling language (an input file ?) specifying the layout of the scene
-  - Anti-aliasing
+Vous disposez d'une semaine pour réaliser ce logiciel. Les studios de cinéma exigent les fonctionnalités suivantes :
+
+- Rendre au moins une **sphère** et un **plan** avec une réflexion complète (c'est-à-dire une sphère totalement métallique qui reflète son environnement), et produire une image unique au format PNG.
+- Vous devez être capable de rendre une image haute résolution d'une scène avec une grande quantité d'objets, et au moins 4 rebonds de lumière. Vous devez mesurer le temps de rendu et l'indiquer dans votre soumission finale. N'oubliez pas qu'un film est composé d'une série d'images statiques. Votre logiciel devra donc rendre des centaines de milliers d'images pour créer le film. La vitesse de rendu est donc un facteur important pour le client !
+- Si vous y parvenez, vous obtiendrez un crédit supplémentaire pour l'un ou l'autre des éléments suivants :
+  - La mise en œuvre d'autres modèles de surface (Blinn, Phong, Gourad, Cook-Torrance).
+  - Rendre d'autres formes, par exemple des cubes, des cylindres, des triangles
+  - Le rendu d'un modèle 3D (au format .obj, .fbx, .collada ou autre)
+  - Stratégies d'optimisation du rendu :
+    - partitionnement de l'espace
+    - Multi-threading ou traitement parallèle
+    - Utilisation du GPU
+    - Multi-traitement (rendu sur un cluster, files d'attente, etc.)
+  - Techniques de rendu de surface plus avancées : texture-mapping, bump-mapping, environment mapping, ...
+  - Un langage structuré de modélisation de la scène (un fichier d'entrée ?) spécifiant la disposition de la scène
+  - Anti-crénelage
   - ... 
 
-However, in this dystopian future, there are some constraints ! All modern programming languages such as Go, Python, Java, etc have become full proprietary - to use them you need to pay huge royalties, that will make this project unfeasible. You have to use the only remaining free language : C++ 
+Cependant, dans ce futur dystopique, il y a quelques contraintes ! Tous les langages de programmation modernes tels que Go, Python, Java, etc. sont devenus totalement propriétaires - pour les utiliser, vous devez payer d'énormes royalties, ce qui rendra ce projet irréalisable. Vous devez utiliser le seul langage libre restant : C++. 
 
-Fortunately, there are some old sages that can impart some of the almost-lost knowledge about such fantastical software, that have been compiled in this guide. Read this information carefully !
+Heureusement, il y a quelques vieux sages qui peuvent transmettre des connaissances presque perdues sur ces logiciels fantastiques, qui ont été compilées dans ce guide. Lisez attentivement ces informations !
 
-- [My first C++](./cpp/intro.md)
+- [Qu'est-ce qu'un lanceur de rayons ?](./raytracer/intro.md)
+- [Débuter avec C++](./cpp/intro.md)
 
 
 ## Notation
 
-You have been asked to **build a ray-tracer from first principles**, using the C++ programming language. 
+On vous a demandé de **construire un traceur de rayons à partir des premiers principes**, en utilisant le langage de programmation C++. 
 
-{% hint style="danger" %}
-The purpose of this project is to develop your engineering skills, you ability to conceive and execute a complex software development. The following are therefore considered contrary to the spirit of the exercise, and will not be allowed or accepted :
+{% hint style=danger%}
+Le but de ce projet est de développer vos compétences d'ingénieur, votre capacité à concevoir et à exécuter un développement logiciel complexe. Les éléments suivants sont donc considérés comme contraires à l'esprit de l'exercice, et ne seront pas autorisés ou acceptés :
 
-- Copying or adapting, in any way or form, existing ray-tracer repositories that may exist on Git-Hub or elsewhere
-- The use of Chat-GPT, or other artificial intelligence, to write your code
+- La copie ou l'adaptation, de quelque manière que ce soit, des dépôts de traceurs de rayons existants sur Git-Hub ou ailleurs.
+- L'utilisation de Chat-GPT, ou d'une autre intelligence artificielle, pour écrire votre code.
 
-I will frequently ask you to explain your code, and you will be penalized if you cannot sufficiently explain your data-structure or algorithms.
+Je vous demanderai fréquemment d'expliquer votre code, et vous serez pénalisé si vous ne pouvez pas expliquer suffisamment votre structure de données ou vos algorithmes.
 {% endhint %}
 
-**Delivery and deliverables**
+**Livraison et livrables**
 
-You will need to present your software Thursday 31 October 2024. You will need to present the following :
+Vous devrez présenter votre logiciel le jeudi 31 octobre 2024. Vous devrez présenter les éléments suivants :
 
-- image(s) rendered by your software
-- the total time taken to render your image(s)
-- you will be asked to render an image live in front of the client
-- you will be asked to present and explain some of your code
-- you must provide a GitHub project link
+- la ou les images rendues par votre logiciel
+- le temps total de rendu de votre (vos) image(s)
+- il vous sera demandé de réaliser un rendu d'image en direct devant le client
+- vous devrez présenter et expliquer une partie de votre code
+- vous devez fournir un lien vers le projet GitHub
 
 **Notation**
 
-Notation is performed *à la carte*. A basic functioning product (MVP) will earn you a passing note. After that, you are free to implement whichever technique you wish to improve your note, up to a maximum of 20 points.
+La notation est réalisée *à la carte*. Un produit de base fonctionnel (MVP) vous vaudra une note qui passe. Ensuite, vous êtes libre de mettre en œuvre toutes les techniques que vous souhaitez pour améliorer votre note, jusqu'à un maximum de 20 points.
 
-The following notation grid will be used for evaluating the project :
+La grille de notation suivante sera utilisée pour évaluer le projet :
 
 | Aspect | Note |
 |--|--|
-| **Basic functioning product** | |
-| A functioning C++ executable | 1 |
-| A PNG image is produced | 1 |
-| At a minimum, flat shading of a sphere is accomplished | 1 |
-| At a minimum, diffuse shading of a sphere is accomplished | 2 |
-| Rendering a plane | 1 |
-| Reflections | 2 |
-| **C++ architecture and code quality** |  |
-| Data structures | 1 |
+| **Produit de base fonctionnel*** | |
+| Un exécutable C++ fonctionnel | 1 |
+| Une image PNG est produite | 1 |
+| Au minimum, le rendu plat d'une sphère est réalisé | 1 |
+| Au minimum, le rendu diffus d'une sphère est réalisé | 2 |
+| Rendu d'un plan | 1 |
+| Réflexions | 2 |
+| **Architecture C++ et qualité du code** |  |
+| Structures de données | 1 |
 | Clean code | 1 |
-| Algorithms used and correctly explained | 1 |
-| **Extra points** |
-| Surface shaders other than diffuse | 3 |
-| Rendering other shapes | 3 |
-| Rendering a 3D model (.obj, .fbx, ...) | 3 |
-| Optimisation strategy | up to 8 points |
-| Advanced surface rendering techniques | 3 |
-| Structured language | 2 |
-| Any other feature sufficiently explained and implemented | 3 |
+| Algorithmes utilisés et correctement expliqués | 1 |
+| **Points supplémentaires** |
+| Les shaders de surface autres que les shaders diffus | 3 |
+| Rendu d'autres formes | 3 |
+| Rendu d'un modèle 3D (.obj, .fbx, ...) | 3 |
+| Stratégie d'optimisation |  jusqu'à 8 points |
+| Techniques avancées de rendu de surface | 3 |
+| Langage structuré de modélisation de la scène | 2 |
+| Toute autre caractéristique suffisamment expliquée et mise en œuvre | 3 |
 
 
 
