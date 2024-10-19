@@ -1,4 +1,4 @@
-# Écrire dans une image
+# Écrire une image
 
 L'objectif ultime de ce projet est d'écrire une série de pixels (Couleurs) dans un fichier, par exemple un fichier PNG.
 
@@ -100,10 +100,9 @@ Comment fonctionne ce code ?
 2. Nous pouvons définir des pixels spécifiques à partir des coordonnées `x` et `y`.
 3. Nous pouvons sauvegarder cette grille dans une image. J'utilise l'outil [lodepng](https://lodev.org/lodepng/) que j'ai téléchargé et placé dans le répertoire `src/lodepng`.
 
-
 Rappelez-vous qu'un fichier image n'est qu'une liste de pixels, et que chaque pixel n'est qu'une liste de 3 nombres (un octet chacun). Donc notre fonction write va juste boucler sur chaque `Color`, et pour chaque composante de la couleur, convertir la valeur float en une valeur byte et l'insérer dans le tableau de l'image finale. Un fichier PNG a une quatrième composante, alpha, que nous n'utilisons pas dans cet exemple, donc nous la fixons simplement à sa valeur maximale.
 
-{% hint style=success%}
+{% hint style="success" %}
 Je vous laisse le soin de configurer les fichiers CMakeLists.txt ! C'est le même processus que nous avons utilisé pour la classe Color.
 {% endhint %}
 
