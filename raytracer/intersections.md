@@ -119,7 +119,7 @@ let distance = length(cp)
 let a = sqrt( r*r - distance*distance )
 ```
 
-To get the position `P1` we just need to move back by `a` units along our initial ray, but in the reverse direction:
+Pour obtenir la position `P1`, il suffit de reculer de `a` unités le long de notre rayon initial, mais dans le sens inverse :
 
 ```
 let p1 = p + (a * (-d))

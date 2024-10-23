@@ -4,7 +4,7 @@ Nous avons besoin d'un moyen de représenter les rayons et les positions dans no
 
 ## Positions
 
-Nous savons qu'une position en deux dimensions peut être représentée par la position horizontale (`x`) et la position verticale (`y`) sous une forme vectorielle simple :
+Nous savons qu'une position en deux dimensions peut être représentée par la position horizontale `x` et la position verticale `y` sous une forme vectorielle simple :
 
 ```
 (x, y)
@@ -98,13 +98,13 @@ Ainsi, l'interprétation géométrique de l'ajout d'un vecteur position à un ve
 
 Qu'en est-il de l'ajout de vecteurs directionnels ? C'est l'équivalent de l'ajout d'un point de repère à notre voyage. Le vecteur résultant exprime le déplacement final de la première position à la destination, et sa longueur est le chemin le plus court entre ces deux points.
 
-## Subtraction
+## Soustraction
 
 Je suis au point A et je dois me rendre au point B ? Quel est le déplacement nécessaire ?
 
 Cela se calcule facilement en effectuant une soustraction !
 
-Prenez le point de destination (B) et soustrayez le point de départ (B). Le résultat est un vecteur directionnel qui vous permet d'aller du point A au point B.
+Prenez le point de destination (B) et soustrayez le point de départ (A). Le résultat est un vecteur directionnel qui vous permet d'aller du point A au point B.
 
 ```
 Start: (1, 1)
@@ -122,15 +122,14 @@ Qu'est-ce qu'un rayon ?
 
 Comme pour un rayon lumineux, il y a une source (son origine) et la direction dans laquelle la lumière va se déplacer. La lumière se déplacera dans cette direction à l'infini ! 
 
-Nous pouvons donc considérer un rayon comme une ligne infinie qui part d'un point de notre monde et qui continue à aller dans une direction à l'infini.
-
 Nous exprimons donc notre rayon à l'aide de 2 valeurs : 
 
 
 - `o` : une origine (une position)
 - `d` : une direction **normalisée**, c'est-à-dire avec une longueur de un, qui représente la direction de la ligne sans spécifier sa longueur (parce qu'elle est infinie !)
 
-We can get any point on this ray by specifying how far along the ray to travel, starting at the origin point. Remember the length of our direction vector is 1, so if we multiply it by any value, it will stretch to that value (example `1 * 5 = 5`)
+Nous pouvons obtenir n'importe quel point sur ce rayon en spécifiant la longueur du rayon à parcourir, à partir du point d'origine. Rappelez-vous que la longueur de notre vecteur de direction est de 1, donc si nous le multiplions par n'importe quelle valeur, il s'étirera jusqu'à cette valeur (exemple `1 * 5 = 5`).
+
 ```
 // We want to travel t units in the direction of our ray
 ray = o + (t * d)
