@@ -1,20 +1,20 @@
 # Shading
 
 
-Remember we are trying to calculate the color of a pixel.
+Rappelez-vous que nous essayons de calculer la couleur d'un pixel.
 
-Let us suppose our pixel starts at black:
+Supposons que notre pixel commence par être noir :
 
 
 ```
 let pixel = (0, 0, 0)
 ```
 
-If we cast a ray and it hits nothing in the scene, well the pixel stays black and we continue to the next pixel.
+Si nous lançons un rayon et qu'il ne touche rien dans la scène, le pixel reste noir et nous passons au pixel suivant.
 
-However, if we hit an object, we can set the pixel to the **ambient color** of that object.
+Cependant, si nous touchons un objet, nous pouvons donner au pixel la **couleur ambiante** de cet objet.
 
-Suppose we intersect a sphere, and we know that sphere is a dark shade of green :
+Supposons que nous croisions une sphère et que nous sachions que cette sphère est d'une teinte verte foncée :
 
 
 ```
@@ -32,39 +32,45 @@ pixel = pixel + sphere.ambientColor
 
 ```
 
-Implement this algorithm in your code, you will have implemented a **flat shader** !
+Implémentez cet algorithme dans votre code, vous aurez implémenté un **flat shader**!
 
-## Diffuse shading
+{% hint style="success" %}
+Un **flat shader** ne donne aucun effet 3D de la surface. En réalité, c'est la lumière réfléchie par un objet qui lui donne sa profondeur dans le monde réel.
+{% endhint %}
 
-It is light in our scene that gives our objects their depth. We need to take into account the light and the form at the surface of our intersection point.
+
+## Shader Diffus
+
+C'est la lumière de notre scène qui donne à nos objets leur profondeur. Nous devons tenir compte de la lumière et de la forme à la surface de notre point d'intersection.
 
 ![](./img/diffuse.png)
 
-In the above image, we have already calculated that our ray intersects the sphere at point P. Now we want to know the color of the sphere at P.
+Dans l'image ci-dessus, nous avons déjà calculé que notre rayon coupe la sphère au point P. Nous voulons maintenant connaître la couleur de la sphère au point P.
 
-A simple shading model is to say the color of the point is relative to the angle between the incoming light and the normal at the point.
+Un modèle de shading simple consiste à dire que la couleur du point est relative à l'angle entre la lumière entrante et la normale au point.
 
-The smaller the angle, the more directly the light hits the surface. The larger the angle, the less directly the light hits the surface.
+Plus l'angle est petit, plus la lumière frappe directement la surface. Plus l'angle est grand, moins la lumière frappe directement la surface.
 
-Looking at the diagram we can calculate the normal of a sphere, which is just the vector `CP`
+En regardant le diagramme, nous pouvons calculer la normale d'une sphère, qui est simplement le vecteur `cp`
+
 
 ```
-let CP = P - sphere.c
+let cp = p - sphere.c
 ```
 
 The vector pointing to the light is just the position of the light subtracting the point:
 
 ```
-let PL = L - P
+let pl = l - p
 ```
 
-Once again, the dot product comes to our rescue. Remember we said that if the dot product between two vectors is zero, then they are perpendicular ? Well it follows that if the dot product is 1, then the two vectors are parallel.
+Une fois de plus, le produit scalaire vient à notre secours ! Vous souvenez-vous que nous avons dit que si le produit du point entre deux vecteurs est 0, alors ils sont perpendiculaires ? Il s'ensuit que si le produit point est égal à 1, alors les deux vecteurs sont parallèles.
 
-We can thus use the dot product as a multiplier of intensity ! If the angle to the light is perpendicular, the dot-product value is 0, and so we multiply the color of our object by zero (black). If the angle to the light is 0 degrees, the dot-product value is 1, and we multiple the color of our object by 1. 
+Nous pouvons donc utiliser le produit scalaire comme multiplicateur d'intensité ! Si l'angle avec la lumière est perpendiculaire, la valeur du produit scalaire est 0, et nous multiplions donc la couleur de notre objet par zéro (noir). Si l'angle avec la lumière est de 0 degré, la valeur du produit scalaire est de 1, et nous multiplions la couleur de notre objet par 1. 
 
 ```
-let nCP = normalize(CP);
-let nPL = normalize(PL);
+let nCP = normalize(cp);
+let nPL = normalize(pl);
 
 let intensity = dotProduct(nCP, nPL);
 
@@ -74,9 +80,22 @@ pixel = pixel + intensity * sphere.ambientColor
 
 ## Shading models
 
-There are of course, many shading models that exist. Try implementing your own !
+Il existe bien sûr de nombreux modèles de shading. Nous venons de commencer le modèle qui s'appelle "Phong". Essayez d'implémenter le vôtre !
 
-- [Phone](https://en.wikipedia.org/wiki/Phong_reflection_model)
+
+- [Phong](https://en.wikipedia.org/wiki/Phong_reflection_model)
 - [Blinn-Phong](https://en.wikipedia.org/wiki/Blinn–Phong_reflection_model)
 - [Cook Torrance](https://garykeen27.wixsite.com/portfolio/cook-torrance-shading)
 
+
+## Ombres
+
+Comment prendre en compte les ombres ?
+
+Qu'est-ce qu'une ombre ? C'est l'absence de lumière, due au fait qu'il y a un obstacle entre la lumière et une surface.
+
+Cela correspond parfaitement à notre notion de raytracing ! 
+
+Avant de calculer l'impact d'une lumière sur notre pixel (en utilisant le vecteur `pl` dans notre exemple ci-dessus), peut-être devrions-nous d'abord vérifier s'il n'y a pas un autre objet entre le pixel et la lumière.
+
+Comment faire ? Lancez un rayon ! Si notre rayon croise un autre objet dans la scène avant d'atteindre la lumière, cela signifie que notre pixel ne devrait pas recevoir de valeur de cette lumière : il est dans l'ombre !

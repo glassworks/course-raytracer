@@ -1,12 +1,13 @@
 # Table of contents
 
 * [Lanceur de rayon](README.md)
-* [What is a raytracer ?](what-is-a-raytracer/README.md)
-  * [Basic principle](raytracer/intro.md)
-  * [Vector math](raytracer/vector-math.md)
+* [C'est quoi un lanceur de rayon ?](what-is-a-raytracer/README.md)
+  * [Principe](raytracer/intro.md)
+  * [Mathématiques vectorielles](raytracer/vector-math.md)
   * [Intersections](raytracer/intersections.md)
-  * [Diffuse shading](raytracer/shading.md)
-  * [Reflections](raytracer/reflections.md)
+  * [Shader diffus](raytracer/shading.md)
+  * [Réflexions](raytracer/reflections.md)
+  * [A vous de jouer](raytracer/etc.md)
 * [Intro à C++](intro-to-c++/README.md)
   * [Un projet simple](cpp/intro.md)
   * [Une classe](cpp/class.md)

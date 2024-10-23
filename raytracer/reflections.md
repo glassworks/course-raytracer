@@ -1,45 +1,46 @@
-# Reflections
+# Réflexions
 
-One we have calculated the color at a point, we may want to accumulate reflections from other objects at this point.
+Une fois que nous avons calculé la couleur en un point, nous pouvons vouloir accumuler les réflexions d'autres objets en ce point.
 
-This means casting a ray in a direction around the normal.
-
+Pour ce faire, il faut lancer un rayon dans une direction autour de la normale.
 
 ```
 pixel = pixel + castRay(P, reflectDirection)
 ```
 
-We repeat the process of raycasting and add the returned color to the current color. In reality, we would apply a multiplier to attenuate the reflection color:
+Nous répétons le processus de diffusion des rayons et ajoutons la couleur renvoyée à la couleur actuelle. En réalité, nous appliquerions un multiplicateur pour atténuer la couleur de réflexion :
+
 
 ```
 pixel = pixel + sphere.reflectFactor * castRay(P, reflectDirection)
 ```
 
-But how do we calculate the reflection direction ?
+Mais comment calculer la direction de la réflexion ?
 
-Consider the image:
+Considérez l'image :
 
 ![](./img/reflection1.png)
 
-We need to calculat the vector `PR` which is a reflection of `OP` around the normal `n`.
+Nous devons calculer le vecteur `pr` qui est une réflexion de `op` autour de la normale `n`.
 
-How can we do this ?
+Comment faire ?
 
-First let us project `PR` onto the normal: 
+Projetons d'abord `Ppr` sur la normale : 
+
 
 
 ![](./img/reflection2.png)
 
-Now let us invert this projection (multiply by -1), and double it :
+Inversons maintenant cette projection (en la multipliant par -1) et doublons-la :
+
 
 ![](./img/reflection3.png)
 
-Now if we add our original direction vector to our projection we arrive at `r` !
+Si nous ajoutons notre vecteur de direction original à notre projection, nous obtenons `r` !
 
 ![](./img/reflection4.png)
 
-In code, our reflection vector is calculated as follows :
-
+En code, notre vecteur de réflexion est calculé comme suit :
 
 ```
 let normal = normlize(P - sphere.c);
