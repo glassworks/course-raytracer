@@ -37,7 +37,7 @@ Les principaux studios de cinéma 3D en images de synthèse sont désespérés -
 
 Votre mission est de créer, à partir des premiers principes, un **traceur de rayons**: un logiciel qui rend des images 3D en simulant la façon dont la lumière rebondit autour d'une scène.
 
-<figure><img src="img/example.jpeg" alt=""><figcaption><p>Exemple de scène rendue par un ray-tracer. <a href="https://github.com/mellinoe/veldrid-raytracer">Source</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/test.png" alt=""><figcaption><p>Exemple d'une scène rendue par un raytracer basique avec 4 niveaux de réflexion. Il y a de la place pour l'amélioration !</p></figcaption></figure>
 
 Vous disposez d'une semaine pour réaliser ce logiciel. Les studios de cinéma exigent les fonctionnalités suivantes :
 
