@@ -185,6 +185,19 @@ function intersectSphere(ray, sphere) {
 }
 ```
 
+{% hint style="success" %}
+Voici quelques chiffres pour debugger votre implémentation.
+
+Imaginons qu'on a une caméra à `(0,0,0)`, orientée vers l'axe z-negatif. 
+
+Pour une sphère à `(0, 0, 6)` avec un rayon de `1` :
+
+ - Un rayon passant à travers du point `(0, 0, 0)` touchera la sphère à `(0, 0, 5)`
+ - Un rayon passant à travers du point `(0.01, 0, 0)`, aura la direction normalisée `(0.0099995,0,0.99995)` et touchera la sphère à `(0.0500125,0,5.00125)`
+ - Un rayon passant à travers du point `(0.5, 0.05, 1)`, aura la direction normalisée `(0.446767,0.0446767,0.893534)` et touchera la sphère à `(2.63852,0.263852,5.27704)`
+
+{% endhint %}
+
 ## Note sur le produit scalaire
 
 
