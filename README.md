@@ -64,6 +64,10 @@ Heureusement, il y a quelques vieux sages qui peuvent transmettre des connaissan
 * [Qu'est-ce qu'un lanceur de rayons ?](raytracer/intro.md)
 * [Débuter avec C++](cpp/intro.md)
 
+## Travail d'équipe
+
+Vous devez travailler en groupe de maximum 4 personnes. Merci de renseigner la constitution de vos groupes ici : [https://docs.google.com/spreadsheets/d/15XxlY-hAXphluYYi91rkFycaz-DHESSliPAoS5DUFLo/edit?usp=sharing](https://docs.google.com/spreadsheets/d/15XxlY-hAXphluYYi91rkFycaz-DHESSliPAoS5DUFLo/edit?usp=sharing)
+
 ## Notation
 
 On vous a demandé de **construire un traceur de rayons à partir des premiers principes**, en utilisant le langage de programmation C++.

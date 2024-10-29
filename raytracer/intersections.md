@@ -14,22 +14,20 @@ Le but de notre traceur de rayons est de calculer si ce rayon croise des objets 
 
 Comment effectuer ce calcul ?
 
-
 ## Intersection avec une sphère
 
 La surface d'une sphère peut être définie de manière paramétrique comme un point dans l'espace (appelons-le `c` pour **centre**) et un rayon (`r`). La surface est le nombre infini de points situés à `r` unités du centre `c`.
 
 Examinez la configuration suivante. Nous voulons savoir si le rayon rouge finira par croiser la sphère :
 
-![](./img/sphere-intersection.png)
-
+![](img/sphere-intersection.png)
 
 Comment pouvons-nous faire cela ?
 
 Eh bien, il y a certaines choses que nous savons :
 
-- Nous connaissons l'origine de notre rayon : `o`
-- Nous connaissons le centre du cercle : `c`.
+* Nous connaissons l'origine de notre rayon : `o`
+* Nous connaissons le centre du cercle : `c`.
 
 Connaissant ces deux positions, nous pouvons calculer un vecteur qui représente la distance à parcourir de `o` à `c` , en utilisant la soustraction :
 
@@ -37,7 +35,7 @@ Connaissant ces deux positions, nous pouvons calculer un vecteur qui représente
 oc = c - o
 ```
 
-![](./img/sphere-intersection-2.png)
+![](img/sphere-intersection-2.png)
 
 Si nous **projetons** `OC` sur notre rayon, nous obtenons le point `P` qui tombera quelque part le long du rayon (la partie en pointillé de la ligne représente la partie du rayon qui est au-delà de la première unité représentée par notre direction normalisée).
 
@@ -80,8 +78,7 @@ op = dotProd * ray.d = (dotProd * ray.d.x, dotProd * ray.d.y, dotProd * ray.d.z)
 
 Ainsi, `op` est le vecteur qui nous emmène de `o` à `p`.
 
-Pour calculer la valeur réelle de P, nous partons de l'origine de notre rayon, et nous ajoutons notre vecteur ! 
-
+Pour calculer la valeur réelle de P, nous partons de l'origine de notre rayon, et nous ajoutons notre vecteur !
 
 ```
 p = o + op
@@ -107,12 +104,9 @@ if (distance < r) {
 
 Génial ! Nous savons qu'il y a une intersection ! Comment trouver le point d'intersection exact `p1` ?
 
-
-![](./img/sphere-point-of-intersection.png)
-
+![](img/sphere-point-of-intersection.png)
 
 Nous connaissons déjà la longueur de `cp`, nous connaissons la valeur de `r`, et donc en utilisant pythagore nous pouvons calculer la longueur de `p -> p1` (appelons-le `a`).
-
 
 ```
 let distance = length(cp) 
@@ -130,7 +124,6 @@ Et voilà !
 Maintenant que nous connaissons la position exacte de P dans le monde, nous pouvons commencer à déterminer la couleur de la surface en ce point !
 
 Voici un résumé en pseudo-code des calculs nécessaires pour calculer le point d'intersection :
-
 
 ```
 struct Vector3 {
@@ -200,31 +193,28 @@ Pour une sphère à `(0, 0, 6)` avec un rayon de `1` :
 
 ## Note sur le produit scalaire
 
-
 Le produit scalaire entre deux vecteurs est une valeur très intéressante et utile
 
 ### Relation spatiale
 
 Si **les deux vecteurs sont normalisés**, le produit scalaire est égal au **cosinus** de l'angle entre les deux vecteurs.
 
-
 $$
 \bar{d}\cdot\bar{n}= \cos{\theta}
 $$
 
-Pourquoi est-ce utile ? Eh bien, sans avoir à calculer l'angle $\theta$, nous pouvons déduire des choses sur la relation entre les deux vecteurs.
+Pourquoi est-ce utile ? Eh bien, sans avoir à calculer l'angle θ, nous pouvons déduire des choses sur la relation entre les deux vecteurs.
 
-![](./img/Cosine-Graph.png)
-
+![](img/Cosine-Graph.png)
 
 Le graphique montre que :
 
-- si le produit scalaire = 1, alors nous sommes à 0°. Les deux directions sont orientées dans le même sens
-- si le produit scalaire = 0, alors nous sommes à 90°. Les deux directions sont perpendiculaires.
-- si le produit scalaire > 0, le graphique se situe quelque part entre 0° et 90°, il doit donc s'agir d'un angle aigu
-- si le produit scalaire < 1, le graphique se situe quelque part entre 90° et 270°, il doit donc s'agir d'un angle obtus.
+* si le produit scalaire = 1, alors nous sommes à 0°. Les deux directions sont orientées dans le même sens
+* si le produit scalaire = 0, alors nous sommes à 90°. Les deux directions sont perpendiculaires.
+* si le produit scalaire > 0, le graphique se situe quelque part entre 0° et 90°, il doit donc s'agir d'un angle aigu
+* si le produit scalaire < 1, le graphique se situe quelque part entre 90° et 270°, il doit donc s'agir d'un angle obtus.
 
-Dans l'exemple précédent, nous voulions savoir si la sphère se trouvait **devant le rayon** (et non derrière). L'angle entre notre rayon et la direction vers le centre de la sphère doit donc être un angle aigu. Nous calculons le produit scalaire entre ces deux directions (normalisées), et s'il est négatif, nous savons qu'il s'agit d'un angle obtus, et donc que la sphère doit être derrière nous ! 
+Dans l'exemple précédent, nous voulions savoir si la sphère se trouvait **devant le rayon** (et non derrière). L'angle entre notre rayon et la direction vers le centre de la sphère doit donc être un angle aigu. Nous calculons le produit scalaire entre ces deux directions (normalisées), et s'il est négatif, nous savons qu'il s'agit d'un angle obtus, et donc que la sphère doit être derrière nous !
 
 ```
 // Normalise OC
@@ -236,7 +226,7 @@ ocnorm = normalise(oc)
 if (dotproduct(ocnorm, d) < 0 ) { return }
 ```
 
-### Angle 
+### Angle
 
 Nous pouvons bien sûr obtenir l'angle (en radians) entre les deux directions en utilisant l'inverse du cosinus :
 
@@ -244,17 +234,27 @@ $$
 \theta = \arccos({\bar{d}\cdot\bar{n}})
 $$
 
-Cette méthode renvoie une valeur comprise entre 0 et $2\pi$. Attention cependant, elle ne renvoie pas de nombres négatifs, de sorte que nous ne pouvons pas savoir si l'angle entre les deux vecteurs est à gauche ou à droite.
+Cette méthode renvoie une valeur comprise entre 0 et 2π. Attention cependant, elle ne renvoie pas de nombres négatifs, de sorte que nous ne pouvons pas savoir si l'angle entre les deux vecteurs est à gauche ou à droite.
+
+{% hint style="info" %}
+Comment convertir les radians en degrés ?&#x20;
+
+
+
+$$
+degrees = radians * 180/\pi
+$$
+{% endhint %}
 
 ### Projection
 
-Le produit scalaire entre un vecteur non normalisé et un vecteur normalisé nous donne la longueur d'une  projection du vecteur non normalisé sur le vecteur normalisé.
+Le produit scalaire entre un vecteur non normalisé et un vecteur normalisé nous donne la longueur d'une projection du vecteur non normalisé sur le vecteur normalisé.
 
 Qu'est-ce qu'une projection ?
 
 En imaginant que vous projetiez une lumière perpendiculairement au vecteur normalisé. L'ombre de l'autre vecteur sur le vecteur normalisé est la projection !
 
-Imaginez que nous ayons un vecteur `d` et un autre `n` (qui est normalisé). Pour projeter le vecteur `d` sur le vecteur  `n`, nous utilisons la formule :
+Imaginez que nous ayons un vecteur `d` et un autre `n` (qui est normalisé). Pour projeter le vecteur `d` sur le vecteur `n`, nous utilisons la formule :
 
 $$
 proj(d,n) = (\bar{d}\cdot\bar{n})\bar{n}
@@ -262,12 +262,12 @@ $$
 
 ## Intersection avec un plan
 
-Un plan infini peut être exprimé de façon paramétrique comme suit 
+Un plan infini peut être exprimé de façon paramétrique comme suit
 
-- supposons que nous ayons un point `c` dans l'espace, et un vecteur normal `n`
-- le plan est l'ensemble des points `p` où le vecteur `pc` est perpendiculaire à la normale `n`. 
+* supposons que nous ayons un point `c` dans l'espace, et un vecteur normal `n`
+* le plan est l'ensemble des points `p` où le vecteur `pc` est perpendiculaire à la normale `n`.
 
-![](./img/plane-intersection.png)
+![](img/plane-intersection.png)
 
 Dans le diagramme, nous supposons que `p` se trouve également sur notre rayon. Si la direction du rayon est normalisée, il nous suffit de trouver un multiplicateur `t` pour ce rayon qui le redimensionnera suffisamment pour nous amener à `p`
 
@@ -279,11 +279,9 @@ Nous ne savons pas encore ce qu'est `t` - nous devons le calculer !
 
 Mais nous avons besoin de plus d'informations.
 
-En regardant le diagramme, on peut aussi déduire que si `p` est sur le plan, alors la ligne `pc` doit être perpendiculaire à la normale `n`. 
+En regardant le diagramme, on peut aussi déduire que si `p` est sur le plan, alors la ligne `pc` doit être perpendiculaire à la normale `n`.
 
 Heureusement, le produit scalaire est à nouveau notre ami ! En effet, si le produit scalaire entre deux vecteurs normalisés est 0, cela signifie que les deux vecteurs qui l'ont créé sont perpendiculaires !
-
-
 
 $$
 (\bar{p} - \bar{c})\cdot(\bar{n}) = 0
@@ -341,7 +339,6 @@ let t = num / denom
 ```
 
 Maintenant que nous avons `t`, nous pouvons calculer le point `p` en le substituant à la formule de notre rayon :
-
 
 ```
 let p = ray.o + t * ray.d
